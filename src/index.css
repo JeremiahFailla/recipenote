@@ -13,4 +13,10 @@
   border-radius: 0; 
   appearance: none;
   color: black;
+  list-style: none;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
 }
