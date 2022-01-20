@@ -4,11 +4,13 @@ import Navbar from "../navbar/Navbar";
 
 const Layout = (props) => {
   return (
-    <React.Fragment>
+    <div
+      style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
+    >
       <Navbar />
       {props.children}
       <Footer />
-    </React.Fragment>
+    </div>
   );
 };
 
