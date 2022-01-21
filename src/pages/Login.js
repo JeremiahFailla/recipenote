@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ShowCase from "../components/showcase/ShowCase";
+import LoginContent from "../components/loginContent/LoginContent";
 
 const Main = styled.main`
   background: #fdd87e;
@@ -10,12 +10,12 @@ const Main = styled.main`
   flex-grow: 1;
 `;
 
-const Home = () => {
+const Login = () => {
   return (
     <Main>
-      <ShowCase />
+      <LoginContent />
     </Main>
   );
 };
 
-export default Home;
+export default Login;

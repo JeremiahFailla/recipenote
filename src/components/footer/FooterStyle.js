@@ -4,7 +4,17 @@ export const Footer = styled.footer`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #68c5a2;
+  flex-direction: column;
+  background: #000000;
   padding: 1rem;
-  font-family: "Scada", sans-serif;
+
+  & p,
+  a {
+    color: white;
+    font-family: "Scada", sans-serif;
+    margin-top: 5px;
+  }
+  & a {
+    color: #f69775;
+  }
 `;

@@ -5,7 +5,7 @@ import { FaSearch } from "react-icons/fa";
 const ShowCase = () => {
   return (
     <Styled.Card>
-      <Styled.Img src={require("./../../imgs/soup2.jpg")} alt="Bowl of Soup" />
+      <Styled.Img src={require("./../../imgs/soup3.jpg")} alt="Bowl of Soup" />
       <Styled.TextContent>
         <Styled.Title>Recipe Note</Styled.Title>
         <Styled.Quote>

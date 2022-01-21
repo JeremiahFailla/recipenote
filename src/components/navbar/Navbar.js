@@ -1,11 +1,24 @@
 import React, { useState } from "react";
 import * as Styled from "./NavbarStyles.js";
+import { useSelector, useDispatch } from "react-redux";
+import { BsFillPersonFill } from "react-icons/bs";
 
 const Navbar = () => {
   const [showMobileNav, setShowMobileNav] = useState(false);
+  const [showUserBox, setShowUserBox] = useState(false);
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const showMobileNavHandler = () => {
     setShowMobileNav(!showMobileNav);
+  };
+
+  const showUserBoxHandler = () => {
+    setShowUserBox(!showUserBox);
+  };
+
+  const userLogoutHandler = () => {
+    dispatch({ type: "setLogout" });
   };
 
   return (
@@ -22,16 +35,37 @@ const Navbar = () => {
           <li>
             <Styled.Navlink to="/recipes">Recipes</Styled.Navlink>
           </li>
-          <li>
-            <Styled.NavButton to="/login" secondary>
-              Login
-            </Styled.NavButton>
-          </li>
-          <li>
-            <Styled.NavButton to="/joinnow" primary last>
-              Join Now
-            </Styled.NavButton>
-          </li>
+          {!user && (
+            <React.Fragment>
+              <li>
+                <Styled.NavButton to="/login" secondary>
+                  Login
+                </Styled.NavButton>
+              </li>
+              <li>
+                <Styled.NavButton to="/joinnow" primary last>
+                  Join Now
+                </Styled.NavButton>
+              </li>
+            </React.Fragment>
+          )}
+
+          {user && (
+            <Styled.PersonIconContainer
+              onMouseLeave={showUserBoxHandler}
+              onMouseEnter={showUserBoxHandler}
+            >
+              <Styled.PersonIcon />
+              {showUserBox && (
+                <Styled.UserLogoutContainer>
+                  <Styled.Username>Hello, {user.displayName}</Styled.Username>
+                  <Styled.LogoutButton onClick={userLogoutHandler}>
+                    Logout
+                  </Styled.LogoutButton>
+                </Styled.UserLogoutContainer>
+              )}
+            </Styled.PersonIconContainer>
+          )}
         </Styled.Ul>
         <Styled.MobileBars onClick={showMobileNavHandler} />
         {showMobileNav && (

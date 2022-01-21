@@ -6,6 +6,7 @@ import {
   onAuthStateChanged,
   signOut,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 
 // Your web app's Firebase configuration
@@ -24,4 +25,12 @@ const auth = getAuth();
 
 export function signUp(email, password) {
   return createUserWithEmailAndPassword(auth, email, password);
+}
+
+export function login(email, password) {
+  return signInWithEmailAndPassword(auth, email, password);
+}
+
+export function updateDisplayName(name) {
+  return updateProfile(auth.currentUser, { displayName: name });
 }

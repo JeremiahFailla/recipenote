@@ -1,25 +1,13 @@
 import styled, { keyframes } from "styled-components";
 import { NavLink, Link } from "react-router-dom";
 import { CgDetailsMore } from "react-icons/cg";
+import { BsFillPersonFill } from "react-icons/bs";
 
 export const Header = styled.header`
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.452) 0%,
-      rgba(255, 255, 255, 0.404) 100%
-    ),
-    linear-gradient(
-      90deg,
-      #92bbb3 4.22%,
-      rgba(146, 187, 179, 0.83) 46.35%,
-      rgba(146, 187, 179, 0.61) 65.54%,
-      rgba(146, 187, 179, 0.37) 83.19%,
-      rgba(146, 187, 179, 0.1) 97.41%
-    ); */
   background: #ffffff7d;
   position: absolute;
   top: 0;
@@ -83,7 +71,52 @@ export const NavButton = styled(NavLink)`
   }
 `;
 
-// Mobile Styled Componets
+export const PersonIconContainer = styled.div`
+  position: relative;
+`;
+
+export const UserLogoutContainer = styled.div`
+  position: absolute;
+  top: 30px;
+  right: 0;
+  border: 1px solid black;
+  background: #ffffff7d;
+`;
+
+export const LogoutButton = styled.button`
+  border: none;
+  outline: 0;
+  padding: 5px 10px;
+  background: white;
+  color: black;
+  font-family: "Scada", sans-serif;
+  width: 100%;
+
+  &:hover {
+    background: #d8440f;
+    color: white;
+  }
+`;
+
+export const Username = styled.p`
+  font-size: 1rem;
+  padding: 5px 10px;
+  text-align: center;
+  color: black;
+  font-family: "Scada", sans-serif;
+  white-space: nowrap;
+`;
+
+export const PersonIcon = styled(BsFillPersonFill)`
+  font-size: 2rem;
+  cursor: pointer;
+
+  & path {
+    color: #d8440f;
+  }
+`;
+
+export // Mobile Styled Componets
 
 const show = keyframes`
   to {

@@ -2,6 +2,7 @@ import { createStore } from "redux";
 
 const defaultState = {
   loggedIn: false,
+  user: undefined,
 };
 
 const recipeReducer = (state = defaultState, action) => {
@@ -9,6 +10,18 @@ const recipeReducer = (state = defaultState, action) => {
     return {
       ...state,
       loggedIn: action.loggedIn,
+    };
+  }
+  if (action.type === "setLogout") {
+    return {
+      ...state,
+      user: undefined,
+    };
+  }
+  if (action.type === "setUser") {
+    return {
+      ...state,
+      user: action.user,
     };
   }
   return state;

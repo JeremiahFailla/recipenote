@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ShowCase from "../components/showcase/ShowCase";
+import JoinNowContent from "../components/joinNowContent/JoinNowContent";
 
 const Main = styled.main`
   background: #fdd87e;
@@ -10,12 +10,12 @@ const Main = styled.main`
   flex-grow: 1;
 `;
 
-const Home = () => {
+const JoinNow = () => {
   return (
     <Main>
-      <ShowCase />
+      <JoinNowContent />
     </Main>
   );
 };
 
-export default Home;
+export default JoinNow;
