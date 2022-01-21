@@ -1,26 +1,37 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
-export const Backdrop = styled.div`
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-    url(${require("../../imgs/about.jpg")});
-  background-repeat: no-repeat;
-  /* background-size: cover; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+export const BackdropImage = styled.img`
+  height: 100%;
+  object-fit: cover;
   width: 100%;
-  max-width: 2000px;
 `;
 
 export const TextContent = styled.div`
+  position: relative;
+  z-index: 50;
   padding: 2rem;
   border-radius: 5px;
-  background: rgba(234, 234, 234, 0.94);
+  background: rgba(255, 255, 255, 0.897);
   display: flex;
   justify-content: center;
   flex-direction: column;
   max-width: 1000px;
+  margin: 0 1rem;
+
+  @media (max-width: 460px) {
+    margin: 80px 1rem;
+  }
+`;
+
+export const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #a8a8a853;
+  z-index: 10;
 `;
 
 export const Title = styled.h1`

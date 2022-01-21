@@ -10,6 +10,7 @@ export const Header = styled.header`
   align-items: center;
   background: #ffffff7d;
   position: absolute;
+  z-index: 1000;
   top: 0;
   left: 0;
 `;
@@ -73,6 +74,9 @@ export const NavButton = styled(NavLink)`
 
 export const PersonIconContainer = styled.div`
   position: relative;
+  border-left: 2px solid black;
+  margin-left: 1rem;
+  padding-left: 1rem;
 `;
 
 export const UserLogoutContainer = styled.div`
@@ -80,7 +84,7 @@ export const UserLogoutContainer = styled.div`
   top: 30px;
   right: 0;
   border: 1px solid black;
-  background: #ffffff7d;
+  background: #ffffff;
 `;
 
 export const LogoutButton = styled.button`

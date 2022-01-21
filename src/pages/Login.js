@@ -7,7 +7,7 @@ const Main = styled.main`
   justify-content: center;
   align-items: center;
   padding: 6rem 0 2rem;
-  flex-grow: 1;
+  flex-grow: 5;
 `;
 
 const Login = () => {

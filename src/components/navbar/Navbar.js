@@ -88,7 +88,7 @@ const Navbar = () => {
             <li>
               <Styled.MobileNavButton
                 to="/login"
-                secondary
+                secondary="true"
                 onClick={showMobileNavHandler}
               >
                 Login
@@ -97,8 +97,8 @@ const Navbar = () => {
             <li>
               <Styled.MobileNavButton
                 to="/joinnow"
-                primary
-                last
+                primary="true"
+                last="true"
                 onClick={showMobileNavHandler}
               >
                 Join Now

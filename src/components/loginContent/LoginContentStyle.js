@@ -19,6 +19,17 @@ export const Title = styled.h1`
   font-family: "Scada", sans-serif;
 `;
 
+export const ErrorMessage = styled.p`
+  color: black;
+  background: red;
+  font-family: "Scada", sans-serif;
+  padding: 5px 10px;
+  text-align: center;
+  width: 100%;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+`;
+
 export const InputContainer = styled.div`
   margin-bottom: 1.5rem;
 
@@ -43,7 +54,20 @@ export const Input = styled.input`
   outline: 0;
   background: #e7e7e7;
   font-family: "Scada", sans-serif;
-  border-bottom: 1px solid #fdd87e;
+  border: 1px solid
+    ${(props) =>
+      props.showErrorEmailInput ||
+      props.showErrorPasswordInput ||
+      props?.showErrorNameInput
+        ? "red"
+        : "transparent"};
+  border-bottom: 1px solid
+    ${(props) =>
+      props.showErrorEmailInput ||
+      props.showErrorPasswordInput ||
+      props?.showErrorNameInput
+        ? "red"
+        : "#fdd87e"};
 `;
 
 export const ForgotPassword = styled(Link)`

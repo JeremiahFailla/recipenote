@@ -7,6 +7,7 @@ export const Footer = styled.footer`
   flex-direction: column;
   background: #000000;
   padding: 1rem;
+  flex-grow: 1;
 
   & p,
   a {

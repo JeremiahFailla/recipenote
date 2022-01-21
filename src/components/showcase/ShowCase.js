@@ -14,7 +14,7 @@ const ShowCase = () => {
         <Styled.QuoteName>- Rachel McAdams</Styled.QuoteName>
         <Styled.SeachBar>
           <Styled.SubmitButton>
-            <FaSearch size="1.5rem" />
+            <FaSearch />
           </Styled.SubmitButton>
           <Styled.SearchInput type="text" placeholder="Find Recipe" />
         </Styled.SeachBar>

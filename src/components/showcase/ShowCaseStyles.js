@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FaSearch } from "react-icons/fa";
 
 export const Card = styled.div`
   display: grid;
@@ -80,6 +81,10 @@ export const SubmitButton = styled.button`
   cursor: pointer;
   outline: 0;
   border: none;
+`;
+
+export const SearchIcon = styled(FaSearch)`
+  font-size: 2rem;
 `;
 
 export const SearchInput = styled.input`

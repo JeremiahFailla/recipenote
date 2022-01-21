@@ -1,9 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Styled from "./AboutContentStyles";
+import * as Spinner from "./../utils/Utils";
 
 const AboutContent = () => {
+  const [showSpinner, setShowSpinner] = useState(true);
+
+  const onImageLoadHandler = () => {
+    console.log("hide spinner");
+    setTimeout(() => {
+      setShowSpinner(false);
+    }, 1000);
+  };
+
   return (
-    <Styled.Backdrop>
+    <React.Fragment>
+      {showSpinner && (
+        <Spinner.SpinnerContianer>
+          <Spinner.Spinner></Spinner.Spinner>
+        </Spinner.SpinnerContianer>
+      )}
+      <Styled.BackdropImage
+        src={require("../../imgs/about.jpg")}
+        onLoad={onImageLoadHandler}
+        height="100%"
+      />
+      <Styled.Overlay></Styled.Overlay>
       <Styled.TextContent>
         <Styled.Title>About Recipe Note</Styled.Title>
         <Styled.Desciption>
@@ -21,7 +42,7 @@ const AboutContent = () => {
           <Styled.Bonuses>- Rate Recipes</Styled.Bonuses>
         </ul>
       </Styled.TextContent>
-    </Styled.Backdrop>
+    </React.Fragment>
   );
 };
 

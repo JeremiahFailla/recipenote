@@ -1,16 +1,29 @@
 import * as Styled from "./JoinNowContentStyles";
 import * as MoreStyled from "./../loginContent/LoginContentStyle";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { signUp, updateDisplayName } from "./../../firebase/firebase";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const JoinNowContent = () => {
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showError, setShowError] = useState(false);
+  const [showErrorEmailInput, setShowErrorEmailInput] = useState(false);
+  const [showErrorPasswordInput, setShowErrorPasswordInput] = useState(false);
+  const [showErrorNameInput, setShowErrorNameInput] = useState(false);
   const displayNameRef = useRef("");
   const emailRef = useRef("");
   const passwordRef = useRef("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (showError === true) {
+      setTimeout(() => {
+        setShowError(false);
+      }, 5000);
+    }
+  }, [showError]);
 
   const setUser = (user) => {
     dispatch({ type: "setUser", user: user });
@@ -18,18 +31,45 @@ const JoinNowContent = () => {
 
   const formSubmitHandler = async (e) => {
     e.preventDefault();
+    if (displayNameRef.current.value.length === 0) {
+      setShowError(true);
+      setShowErrorPasswordInput(false);
+      setShowErrorEmailInput(false);
+      setShowErrorNameInput(true);
+      setErrorMessage("Enter Display Name");
+      return;
+    }
     try {
       const user = await signUp(
         emailRef.current.value,
         passwordRef.current.value
       );
-
-      // user.user.displayName = displayNameRef.current.value;
       await updateDisplayName(displayNameRef.current.value);
       setUser(user.user);
       navigate("/", { replace: true });
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
+      if (error.message.includes("email-already-in-use")) {
+        setShowError(true);
+        setShowErrorPasswordInput(false);
+        setShowErrorNameInput(false);
+        setShowErrorEmailInput(true);
+        setErrorMessage("Email Already Exists");
+      }
+      if (error.message.includes("invalid-email")) {
+        setShowError(true);
+        setShowErrorPasswordInput(false);
+        setShowErrorNameInput(false);
+        setShowErrorEmailInput(true);
+        setErrorMessage("Email Invalid");
+      }
+      if (error.message.includes("wrong-password")) {
+        setShowError(true);
+        setShowErrorEmailInput(false);
+        setShowErrorNameInput(false);
+        setShowErrorPasswordInput(true);
+        setErrorMessage("Incorrect Password");
+      }
     }
   };
 
@@ -40,6 +80,9 @@ const JoinNowContent = () => {
         To See Details About Membership Visit the{" "}
         <Styled.Links to="/about">About</Styled.Links> Page
       </Styled.SeeBonuses>
+      {showError && (
+        <MoreStyled.ErrorMessage>{errorMessage}</MoreStyled.ErrorMessage>
+      )}
       <form onSubmit={formSubmitHandler} style={{ width: "100%" }}>
         <MoreStyled.InputContainer>
           <MoreStyled.Label htmlFor="username">Username</MoreStyled.Label>
@@ -47,8 +90,8 @@ const JoinNowContent = () => {
             type="username"
             placeholder="Username"
             name="text"
-            value={displayNameRef.current.value}
             ref={displayNameRef}
+            showErrorNameInput={showErrorNameInput}
           />
         </MoreStyled.InputContainer>
         <MoreStyled.InputContainer>
@@ -57,8 +100,8 @@ const JoinNowContent = () => {
             type="email"
             placeholder="Email"
             name="email"
-            value={emailRef.current.value}
             ref={emailRef}
+            showErrorEmailInput={showErrorEmailInput}
           />
         </MoreStyled.InputContainer>
         <MoreStyled.InputContainer style={{ marginBottom: "1.5rem" }}>
@@ -67,8 +110,8 @@ const JoinNowContent = () => {
             type="password"
             placeholder="*******"
             name="password"
-            value={passwordRef.current.value}
             ref={passwordRef}
+            showErrorPasswordInput={showErrorPasswordInput}
           />
         </MoreStyled.InputContainer>
         <MoreStyled.LoginButton type="submit">Join</MoreStyled.LoginButton>
