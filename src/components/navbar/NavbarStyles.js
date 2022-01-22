@@ -81,10 +81,26 @@ export const PersonIconContainer = styled.div`
 
 export const UserLogoutContainer = styled.div`
   position: absolute;
-  top: 30px;
-  right: 0;
+  top: 35px;
+  right: -20px;
   border: 1px solid black;
   background: #ffffff;
+`;
+
+export const UserAccount = styled(Link)`
+  padding: 5px 10px;
+  background: white;
+  color: black;
+  font-family: "Scada", sans-serif;
+  white-space: nowrap;
+  width: 100%;
+  font-size: 1rem;
+  display: inline-block;
+
+  &:hover {
+    background: #d8440f;
+    color: white;
+  }
 `;
 
 export const LogoutButton = styled.button`
@@ -95,6 +111,7 @@ export const LogoutButton = styled.button`
   color: black;
   font-family: "Scada", sans-serif;
   width: 100%;
+  font-size: 1rem;
 
   &:hover {
     background: #d8440f;

@@ -6,7 +6,6 @@ const AboutContent = () => {
   const [showSpinner, setShowSpinner] = useState(true);
 
   const onImageLoadHandler = () => {
-    console.log("hide spinner");
     setTimeout(() => {
       setShowSpinner(false);
     }, 1000);

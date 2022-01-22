@@ -8,7 +8,8 @@ export const Card = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  width: max(300px, 27%);
+  width: max(305px, 27%);
+  margin: 0.5rem;
 `;
 
 export const Title = styled.h1`
@@ -32,6 +33,7 @@ export const ErrorMessage = styled.p`
 
 export const InputContainer = styled.div`
   margin-bottom: 1.5rem;
+  position: relative;
 
   &:last-of-type {
     margin-bottom: 0.2rem;
@@ -68,6 +70,16 @@ export const Input = styled.input`
       props?.showErrorNameInput
         ? "red"
         : "#fdd87e"};
+`;
+
+export const ShowPasswordButton = styled.p`
+  font-size: 1rem;
+  font-family: "Scada", sans-serif;
+  position: absolute;
+  top: 40px;
+  right: 15px;
+  color: #d8440f;
+  cursor: pointer;
 `;
 
 export const ForgotPassword = styled(Link)`

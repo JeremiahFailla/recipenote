@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import * as Styled from "./NavbarStyles.js";
 import { useSelector, useDispatch } from "react-redux";
-import { BsFillPersonFill } from "react-icons/bs";
 
 const Navbar = () => {
   const [showMobileNav, setShowMobileNav] = useState(false);
@@ -54,11 +53,15 @@ const Navbar = () => {
             <Styled.PersonIconContainer
               onMouseLeave={showUserBoxHandler}
               onMouseEnter={showUserBoxHandler}
+              onClick={showUserBoxHandler}
             >
               <Styled.PersonIcon />
               {showUserBox && (
                 <Styled.UserLogoutContainer>
                   <Styled.Username>Hello, {user.displayName}</Styled.Username>
+                  <Styled.UserAccount to="/accountsettings">
+                    Account Details
+                  </Styled.UserAccount>
                   <Styled.LogoutButton onClick={userLogoutHandler}>
                     Logout
                   </Styled.LogoutButton>

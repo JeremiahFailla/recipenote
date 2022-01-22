@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const LoginContent = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showError, setShowError] = useState(false);
   const [showErrorEmailInput, setShowErrorEmailInput] = useState(false);
@@ -24,6 +25,10 @@ const LoginContent = () => {
 
   const setUser = (user) => {
     dispatch({ type: "setUser", user: user });
+  };
+
+  const showPasswordHandler = () => {
+    setShowPassword(!showPassword);
   };
 
   const formSubmitHandler = async (e) => {
@@ -74,12 +79,15 @@ const LoginContent = () => {
         <Styled.InputContainer>
           <Styled.Label htmlFor="password">Password:</Styled.Label>
           <Styled.Input
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="*********"
             name="password"
             ref={passwordRef}
             showErrorPasswordInput={showErrorPasswordInput}
           />
+          <Styled.ShowPasswordButton onClick={showPasswordHandler}>
+            Show
+          </Styled.ShowPasswordButton>
         </Styled.InputContainer>
         <Styled.ForgotPassword to="/login">
           Forgot Password?

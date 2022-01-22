@@ -1,12 +1,12 @@
-// Import the functions you need from the SDKs you need
+import { useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
-  signOut,
   signInWithEmailAndPassword,
   updateProfile,
+  updateEmail,
 } from "firebase/auth";
 
 // Your web app's Firebase configuration
@@ -33,4 +33,12 @@ export function login(email, password) {
 
 export function updateDisplayName(name) {
   return updateProfile(auth.currentUser, { displayName: name });
+}
+
+export function getUser() {
+  return auth.currentUser;
+}
+
+export function updateUserEmail(email) {
+  return updateEmail(auth.currentUser, email);
 }

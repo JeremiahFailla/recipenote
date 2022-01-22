@@ -7,6 +7,7 @@ import Recipes from "./pages/Recipes";
 import Layout from "./components/layout/Layout";
 import Login from "./pages/Login";
 import JoinNow from "./pages/JoinNow";
+import AccountSettings from "./pages/AccountSettings";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/recipes" element={<Recipes />} />
         <Route path="/login" element={<Login />} />
         <Route path="/joinnow" element={<JoinNow />} />
+        <Route path="/accountsettings" element={<AccountSettings />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </Layout>
