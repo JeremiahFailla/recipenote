@@ -1,59 +1,45 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const Card = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
   border-radius: 5px;
   background: white;
-  padding: 2rem;
+  padding: 2.5rem;
 `;
 
 export const Title = styled.h1`
   font-size: 2rem;
   font-family: "Scada", sans-serif;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 `;
 
-export const CurrentData = styled.p`
-  font-size: 1.1rem;
-  margin: 1.5rem 0 0.5rem;
-  font-family: "Scada", sans-serif;
-
-  &:first-of-type {
-    margin: 1rem 0 0.5rem;
-  }
+export const InfoContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 2rem;
 `;
 
-export const InputContainer = styled.div`
-  display: flex;
-`;
-
-export const ChangeInfoInput = styled.input`
-  padding: 5px 15px;
-  font-size: 1rem;
-  border: none;
-  background: #e7e7e7;
-  border-radius: 5px 0 0 5px;
+export const Label = styled.p`
+  font-size: 1.2rem;
   font-family: "Scada", sans-serif;
   flex-grow: 1;
-
-  &:focus {
-    border: none;
-    outline: 0;
-  }
 `;
 
-export const ChangeInfoButton = styled.button`
+export const EditButtonContainer = styled.div`
+  text-align: center;
+`;
+
+export const EditButton = styled(Link)`
+  width: max-content;
+  padding: 5px 15px;
+  background: #d8440f;
   border: none;
-  border-radius: 0 5px 5px 0;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-family: "Scada", sans-serif;
-  padding: 0 10px;
-  background: #e7e7e7;
-  cursor: pointer;
+  border-radius: 5px;
 
   &:hover {
-    background: #fdd87e;
+    transform: scale(1.05);
   }
 `;

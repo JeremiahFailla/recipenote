@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import * as Styled from "./NavbarStyles.js";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [showMobileNav, setShowMobileNav] = useState(false);
   const [showUserBox, setShowUserBox] = useState(false);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const showMobileNavHandler = () => {
     setShowMobileNav(!showMobileNav);
@@ -18,6 +20,7 @@ const Navbar = () => {
 
   const userLogoutHandler = () => {
     dispatch({ type: "setLogout" });
+    navigate("/", { replace: true });
   };
 
   return (

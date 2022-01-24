@@ -24,6 +24,12 @@ const recipeReducer = (state = defaultState, action) => {
       user: action.user,
     };
   }
+  if (action.type === "setUserPassword") {
+    return {
+      ...state,
+      password: action.password,
+    };
+  }
   return state;
 };
 

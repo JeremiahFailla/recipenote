@@ -8,6 +8,7 @@ import Layout from "./components/layout/Layout";
 import Login from "./pages/Login";
 import JoinNow from "./pages/JoinNow";
 import AccountSettings from "./pages/AccountSettings";
+import EditAccountSettings from "./pages/EditAccountSettings";
 
 function App() {
   return (
@@ -19,6 +20,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/joinnow" element={<JoinNow />} />
         <Route path="/accountsettings" element={<AccountSettings />} />
+        <Route
+          path="/accountsettings/editsettings"
+          element={<EditAccountSettings />}
+        />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </Layout>

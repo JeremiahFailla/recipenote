@@ -42,3 +42,14 @@ export function getUser() {
 export function updateUserEmail(email) {
   return updateEmail(auth.currentUser, email);
 }
+
+// updateEmail(auth.currentUser, "user@example.com")
+
+const changeUserState = () => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      return user;
+    }
+    return undefined;
+  });
+};

@@ -27,6 +27,10 @@ const LoginContent = () => {
     dispatch({ type: "setUser", user: user });
   };
 
+  const setUserPassword = () => {
+    dispatch({ type: "setUserPassword", password: passwordRef.current.value });
+  };
+
   const showPasswordHandler = () => {
     setShowPassword(!showPassword);
   };
@@ -39,6 +43,7 @@ const LoginContent = () => {
         passwordRef.current.value
       );
       setUser(user.user);
+      setUserPassword();
       navigate("/", { replace: true });
     } catch (error) {
       if (error.message.includes("user-not-found")) {

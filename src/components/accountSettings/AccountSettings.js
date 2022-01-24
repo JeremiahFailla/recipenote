@@ -1,33 +1,21 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import * as Styled from "./AccountSettingsStyle";
-import { updateDisplayName, updateUserEmail } from "./../../firebase/firebase";
 import { useSelector } from "react-redux";
 import * as Spinner from "./../utils/Utils";
 
+const starPassword = (pass) => {
+  const starredPassword = [];
+  pass.split("").forEach(() => {
+    starredPassword.push("*");
+  });
+  return starredPassword;
+};
+
 const AccountSettings = () => {
-  const nameRef = useRef();
-  const emailRef = useRef();
-  const passwordRef = useRef();
   const user = useSelector((state) => state.user);
   const [updateData, setUpdateData] = useState(false);
-
-  const changeNameHandler = async () => {
-    try {
-      await updateDisplayName(nameRef.current.value);
-      setUpdateData(!updateData);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const changeEmailHandler = async () => {
-    try {
-      await updateUserEmail(emailRef.current.email);
-      setUpdateData(!updateData);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const password = useSelector((state) => state.password);
+  const starredPassword = starPassword(password).join("");
   console.log(user);
 
   useEffect(() => {
@@ -38,6 +26,9 @@ const AccountSettings = () => {
     }
   }, [updateData]);
 
+  let date = new Date(user.metadata.creationTime);
+  date = `${date.getMonth() + 1}/${date.getDate() + 1}/${date.getFullYear()}`;
+
   return (
     <React.Fragment>
       {updateData && (
@@ -47,42 +38,28 @@ const AccountSettings = () => {
       )}
       {!updateData && (
         <Styled.Card>
-          <Styled.Title>{user.displayName}'s Account Settings</Styled.Title>
-          <Styled.CurrentData>
-            New Display Name: {user.displayName}
-          </Styled.CurrentData>
-          <Styled.InputContainer>
-            <Styled.ChangeInfoInput
-              type="text"
-              ref={nameRef}
-              placeholder="Change Display Name"
-            />
-            <Styled.ChangeInfoButton onClick={changeNameHandler}>
-              Save
-            </Styled.ChangeInfoButton>
-          </Styled.InputContainer>
-          <Styled.CurrentData>New Email: {user.email}</Styled.CurrentData>
-          <Styled.InputContainer>
-            <Styled.ChangeInfoInput
-              type="text"
-              ref={emailRef}
-              placeholder="Change Email"
-            />
-            <Styled.ChangeInfoButton onClick={changeEmailHandler}>
-              Save
-            </Styled.ChangeInfoButton>
-          </Styled.InputContainer>
-          <Styled.CurrentData>Password</Styled.CurrentData>
-          <Styled.InputContainer>
-            <Styled.ChangeInfoInput
-              type="password"
-              ref={passwordRef}
-              placeholder="New Password"
-            />
-            <Styled.ChangeInfoButton onClick={changeNameHandler}>
-              Save
-            </Styled.ChangeInfoButton>
-          </Styled.InputContainer>
+          <Styled.Title>{user.displayName}'s Account Details</Styled.Title>
+          <Styled.InfoContainer>
+            <Styled.Label>Display Name</Styled.Label>
+            <Styled.Label>{user.displayName}</Styled.Label>
+          </Styled.InfoContainer>
+          <Styled.InfoContainer>
+            <Styled.Label>Email</Styled.Label>
+            <Styled.Label>{user.email}</Styled.Label>
+          </Styled.InfoContainer>
+          <Styled.InfoContainer>
+            <Styled.Label>Password</Styled.Label>
+            <Styled.Label>{starredPassword}</Styled.Label>
+          </Styled.InfoContainer>
+          <Styled.InfoContainer>
+            <Styled.Label>Date Joinned</Styled.Label>
+            <Styled.Label>{date}</Styled.Label>
+          </Styled.InfoContainer>
+          <Styled.EditButtonContainer>
+            <Styled.EditButton to="/accountsettings/editsettings">
+              Edit Details
+            </Styled.EditButton>
+          </Styled.EditButtonContainer>
         </Styled.Card>
       )}
     </React.Fragment>

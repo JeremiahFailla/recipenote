@@ -29,6 +29,10 @@ const JoinNowContent = () => {
     dispatch({ type: "setUser", user: user });
   };
 
+  const setUserPassword = () => {
+    dispatch({ type: "setUserPassword", password: passwordRef.current.value });
+  };
+
   const formSubmitHandler = async (e) => {
     e.preventDefault();
     if (displayNameRef.current.value.length === 0) {
@@ -46,6 +50,7 @@ const JoinNowContent = () => {
       );
       await updateDisplayName(displayNameRef.current.value);
       setUser(user.user);
+      setUserPassword();
       navigate("/", { replace: true });
     } catch (error) {
       console.log(error.message);
