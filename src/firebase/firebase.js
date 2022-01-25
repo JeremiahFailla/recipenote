@@ -3,7 +3,6 @@ import { initializeApp } from "firebase/app";
 import {
   getAuth,
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
   updateProfile,
   updateEmail,
@@ -21,7 +20,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth();
+export const auth = getAuth(app);
 
 export function signUp(email, password) {
   return createUserWithEmailAndPassword(auth, email, password);
@@ -44,12 +43,3 @@ export function updateUserEmail(email) {
 }
 
 // updateEmail(auth.currentUser, "user@example.com")
-
-const changeUserState = () => {
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      return user;
-    }
-    return undefined;
-  });
-};

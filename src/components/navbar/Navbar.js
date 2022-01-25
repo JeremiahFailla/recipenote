@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import * as Styled from "./NavbarStyles.js";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../../firebase/firebase.js";
+import { onAuthStateChanged } from "firebase/auth";
 
 const Navbar = () => {
   const [showMobileNav, setShowMobileNav] = useState(false);
   const [showUserBox, setShowUserBox] = useState(false);
-  const user = useSelector((state) => state.user);
+  const userState = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -19,9 +21,18 @@ const Navbar = () => {
   };
 
   const userLogoutHandler = () => {
-    dispatch({ type: "setLogout" });
+    // dispatch({ type: "setLogout" });
     navigate("/", { replace: true });
   };
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log(user);
+      dispatch({ type: "setUser", user: user });
+    } else {
+      dispatch({ type: "setLogout" });
+    }
+  });
 
   return (
     <Styled.Header>
@@ -37,7 +48,7 @@ const Navbar = () => {
           <li>
             <Styled.Navlink to="/recipes">Recipes</Styled.Navlink>
           </li>
-          {!user && (
+          {!userState && (
             <React.Fragment>
               <li>
                 <Styled.NavButton to="/login" secondary>
@@ -52,7 +63,7 @@ const Navbar = () => {
             </React.Fragment>
           )}
 
-          {user && (
+          {userState && (
             <Styled.PersonIconContainer
               onMouseLeave={showUserBoxHandler}
               onMouseEnter={showUserBoxHandler}
@@ -61,7 +72,9 @@ const Navbar = () => {
               <Styled.PersonIcon />
               {showUserBox && (
                 <Styled.UserLogoutContainer>
-                  <Styled.Username>Hello, {user.displayName}</Styled.Username>
+                  <Styled.Username>
+                    Hello, {userState.displayName}
+                  </Styled.Username>
                   <Styled.UserAccount to="/accountsettings">
                     Account Details
                   </Styled.UserAccount>

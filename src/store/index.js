@@ -6,10 +6,10 @@ const defaultState = {
 };
 
 const recipeReducer = (state = defaultState, action) => {
-  if (action.type === "setLoggedIn") {
+  if (action.type === "siteLoaded") {
     return {
       ...state,
-      loggedIn: action.loggedIn,
+      siteLoaded: true,
     };
   }
   if (action.type === "setLogout") {

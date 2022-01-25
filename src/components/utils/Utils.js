@@ -14,10 +14,12 @@ export const SpinnerContianer = styled.div`
   justify-content: center;
   align-items: center;
   background: #fdd87e;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  z-index: 500;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: ${(props) => props.notFirstLoad || props.firstLoad || "500"};
 `;
 
 export const Spinner = styled.div`

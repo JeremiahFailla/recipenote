@@ -1,6 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import * as Styled from "./EditAccountSettingsStyles";
 import { useSelector } from "react-redux";
+import { BsTruckFlatbed } from "react-icons/bs";
+import ConfirmModal from "../modals/ConfirmModal";
 
 const EditAccountSettings = () => {
   const password = useSelector((state) => state.password);
@@ -9,7 +11,9 @@ const EditAccountSettings = () => {
   const confirmPasswordRef = useRef();
   const [errorMessage, setErrorMessage] = useState("");
   const [showError, setShowError] = useState(false);
-  const [showDetailedSection, setShowDetailedSection] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [showDetailedSection, setShowDetailedSection] =
+    useState(BsTruckFlatbed);
 
   const comparePasswords = (e) => {
     e.preventDefault();
@@ -27,6 +31,11 @@ const EditAccountSettings = () => {
     }
   };
 
+  const showConfirmModal = (e) => {
+    e.preventDefault();
+    setShowModal(true);
+  };
+
   useEffect(() => {
     if (showError) {
       setTimeout(() => {
@@ -35,11 +44,55 @@ const EditAccountSettings = () => {
     }
   }, [showError]);
 
+  const closeModal = (e) => {
+    if (e.target.dataset.modal || e.target.dataset.close) {
+      setShowModal(false);
+    }
+  };
+
   return (
     <React.Fragment>
+      {showModal && (
+        <ConfirmModal close={closeModal}>
+          <Styled.Title style={{ margin: "2rem" }}>
+            Confirm Save Account Details
+          </Styled.Title>
+          <Styled.EditButtonContainer style={{ margin: "2rem" }}>
+            <Styled.ConfirmChangesButton>
+              Confirm Changes
+            </Styled.ConfirmChangesButton>
+            <Styled.CancelButton data-close="close">Cancel</Styled.CancelButton>
+          </Styled.EditButtonContainer>
+        </ConfirmModal>
+      )}
       {showDetailedSection && (
-        <Styled.Card>
+        <Styled.Card onSubmit={showConfirmModal}>
           <Styled.Title>Edit Account Details</Styled.Title>
+          <Styled.InfoContainer>
+            <Styled.Label htmlFor="name">Display Name</Styled.Label>
+            <Styled.Input
+              type="text"
+              name="name"
+              id="name"
+              value={user.displayName}
+            />
+          </Styled.InfoContainer>
+          <Styled.InfoContainer>
+            <Styled.Label htmlFor="email">Display Name</Styled.Label>
+            <Styled.Input
+              type="email"
+              name="email"
+              id="email"
+              value={user.email}
+            />
+          </Styled.InfoContainer>
+          <Styled.InfoContainer>
+            <Styled.Label>Password</Styled.Label>
+            <Styled.Label>Change Password</Styled.Label>
+          </Styled.InfoContainer>
+          <Styled.EditButtonContainer>
+            <Styled.EditButton>Save</Styled.EditButton>
+          </Styled.EditButtonContainer>
         </Styled.Card>
       )}
       {!showDetailedSection && (
@@ -56,7 +109,7 @@ const EditAccountSettings = () => {
           )}
           <Styled.InfoContainer>
             <Styled.Label htmlFor="password">Enter Password</Styled.Label>
-            <Styled.PasswordInput
+            <Styled.Input
               type="password"
               name="password"
               id="password"
@@ -67,7 +120,7 @@ const EditAccountSettings = () => {
             <Styled.Label htmlFor="confirmpassword">
               Re-enter Password
             </Styled.Label>
-            <Styled.PasswordInput
+            <Styled.Input
               type="password"
               name="confirmpassword"
               id="confirmpassword"

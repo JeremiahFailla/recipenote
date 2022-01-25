@@ -66,6 +66,7 @@ export const NavButton = styled(NavLink)`
   font-size: 1.4rem;
   margin-left: 1rem;
   display: inline-block;
+  transition: all 0.2s ease;
 
   &:hover {
     transform: scale(1.1);
