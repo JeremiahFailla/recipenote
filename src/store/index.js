@@ -3,6 +3,7 @@ import { createStore } from "redux";
 const defaultState = {
   loggedIn: false,
   user: undefined,
+  favorites: [],
 };
 
 const recipeReducer = (state = defaultState, action) => {
@@ -28,6 +29,12 @@ const recipeReducer = (state = defaultState, action) => {
     return {
       ...state,
       password: action.password,
+    };
+  }
+  if (action.type === "addFavorite") {
+    return {
+      ...state,
+      favorites: state.favorites.push(action.recipe),
     };
   }
   return state;

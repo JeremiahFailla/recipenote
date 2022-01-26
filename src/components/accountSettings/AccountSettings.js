@@ -27,7 +27,7 @@ const AccountSettings = () => {
   }, [updateData]);
 
   let date = new Date(user.metadata.creationTime);
-  date = `${date.getMonth() + 1}/${date.getDate() + 1}/${date.getFullYear()}`;
+  date = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
 
   return (
     <React.Fragment>

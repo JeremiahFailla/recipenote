@@ -84,11 +84,11 @@ export const SubmitButton = styled.button`
 `;
 
 export const SearchIcon = styled(FaSearch)`
-  font-size: 2rem;
+  font-size: 1.5rem;
 `;
 
 export const SearchInput = styled.input`
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-size: clamp(1.2rem, 1.5vw, 2rem);
   padding: 8px 15px;
   background: #e9e9e9b7;
   height: 100%;

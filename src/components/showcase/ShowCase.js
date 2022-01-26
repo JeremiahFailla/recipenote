@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as Styled from "./ShowCaseStyles.js";
 import * as Spinner from "./../utils/Utils";
-import { FaSearch } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 
 const ShowCase = () => {
@@ -45,7 +44,7 @@ const ShowCase = () => {
           <Styled.QuoteName>- Rachel McAdams</Styled.QuoteName>
           <Styled.SeachBar>
             <Styled.SubmitButton>
-              <FaSearch />
+              <Styled.SearchIcon />
             </Styled.SubmitButton>
             <Styled.SearchInput type="text" placeholder="Find Recipe" />
           </Styled.SeachBar>

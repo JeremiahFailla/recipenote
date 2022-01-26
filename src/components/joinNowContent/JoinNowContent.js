@@ -51,6 +51,7 @@ const JoinNowContent = () => {
       await updateDisplayName(displayNameRef.current.value);
       setUser(user.user);
       setUserPassword();
+      sessionStorage.setItem("up", passwordRef.current.value);
       navigate("/", { replace: true });
     } catch (error) {
       console.log(error.message);

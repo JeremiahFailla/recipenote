@@ -44,6 +44,7 @@ const LoginContent = () => {
       );
       setUser(user.user);
       setUserPassword();
+      sessionStorage.setItem("up", passwordRef.current.value);
       navigate("/", { replace: true });
     } catch (error) {
       if (error.message.includes("user-not-found")) {

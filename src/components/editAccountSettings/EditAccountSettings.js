@@ -3,17 +3,22 @@ import * as Styled from "./EditAccountSettingsStyles";
 import { useSelector } from "react-redux";
 import { BsTruckFlatbed } from "react-icons/bs";
 import ConfirmModal from "../modals/ConfirmModal";
+import { updateDisplayName, updateUserEmail } from "../../firebase/firebase";
+import { useNavigate } from "react-router-dom";
 
 const EditAccountSettings = () => {
   const password = useSelector((state) => state.password);
   const user = useSelector((state) => state.user);
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
+  const [displayName, setDisplayName] = useState(user?.displayName);
+  const [email, setEmail] = useState(user?.email);
   const [errorMessage, setErrorMessage] = useState("");
   const [showError, setShowError] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showDetailedSection, setShowDetailedSection] =
     useState(BsTruckFlatbed);
+  const navigate = useNavigate();
 
   const comparePasswords = (e) => {
     e.preventDefault();
@@ -50,6 +55,16 @@ const EditAccountSettings = () => {
     }
   };
 
+  const changeAccountDetailsHandler = async () => {
+    try {
+      await updateDisplayName(displayName);
+      await updateUserEmail(email);
+      navigate("/accountsettings", { replace: true });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <React.Fragment>
       {showModal && (
@@ -58,7 +73,7 @@ const EditAccountSettings = () => {
             Confirm Save Account Details
           </Styled.Title>
           <Styled.EditButtonContainer style={{ margin: "2rem" }}>
-            <Styled.ConfirmChangesButton>
+            <Styled.ConfirmChangesButton onClick={changeAccountDetailsHandler}>
               Confirm Changes
             </Styled.ConfirmChangesButton>
             <Styled.CancelButton data-close="close">Cancel</Styled.CancelButton>
@@ -74,7 +89,10 @@ const EditAccountSettings = () => {
               type="text"
               name="name"
               id="name"
-              value={user.displayName}
+              value={displayName}
+              onChange={(e) => {
+                setDisplayName(e.target.value);
+              }}
             />
           </Styled.InfoContainer>
           <Styled.InfoContainer>
@@ -83,7 +101,10 @@ const EditAccountSettings = () => {
               type="email"
               name="email"
               id="email"
-              value={user.email}
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
             />
           </Styled.InfoContainer>
           <Styled.InfoContainer>
