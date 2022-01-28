@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
   updateEmail,
+  updatePassword,
 } from "firebase/auth";
 
 // Your web app's Firebase configuration
@@ -40,6 +41,10 @@ export function getUser() {
 
 export function updateUserEmail(email) {
   return updateEmail(auth.currentUser, email);
+}
+
+export function updateUserPassword(password) {
+  return updatePassword(auth.currentUser, password);
 }
 
 // updateEmail(auth.currentUser, "user@example.com")

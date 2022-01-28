@@ -16,6 +16,7 @@ import EditAccountSettings from "./pages/EditAccountSettings";
 
 function App() {
   const dispatch = useDispatch();
+
   onAuthStateChanged(auth, (user) => {
     if (user) {
       const password = sessionStorage.getItem("up");

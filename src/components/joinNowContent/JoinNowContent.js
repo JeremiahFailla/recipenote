@@ -1,9 +1,10 @@
 import * as Styled from "./JoinNowContentStyles";
 import * as MoreStyled from "./../loginContent/LoginContentStyle";
 import { useRef, useState, useEffect } from "react";
-import { signUp, updateDisplayName } from "./../../firebase/firebase";
+import { signUp, updateDisplayName, auth } from "./../../firebase/firebase";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setPersistence, browserSessionPersistence } from "firebase/auth";
 
 const JoinNowContent = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -44,6 +45,7 @@ const JoinNowContent = () => {
       return;
     }
     try {
+      await setPersistence(auth, browserSessionPersistence);
       const user = await signUp(
         emailRef.current.value,
         passwordRef.current.value

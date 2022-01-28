@@ -1,8 +1,9 @@
 import * as Styled from "./LoginContentStyle";
 import { useRef, useState, useEffect } from "react";
-import { login } from "../../firebase/firebase";
+import { login, auth } from "../../firebase/firebase";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setPersistence, browserSessionPersistence } from "firebase/auth";
 
 const LoginContent = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -38,6 +39,7 @@ const LoginContent = () => {
   const formSubmitHandler = async (e) => {
     e.preventDefault();
     try {
+      await setPersistence(auth, browserSessionPersistence);
       const user = await login(
         emailRef.current.value,
         passwordRef.current.value

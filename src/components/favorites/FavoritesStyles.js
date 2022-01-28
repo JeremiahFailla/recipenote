@@ -13,7 +13,7 @@ export const FavoritesContainer = styled.div`
   border: 1px solid black;
   background: #ffffff;
   border-radius: 5px;
-  width: 200px;
+  width: 250px;
   opacity: 0;
   animation: ${show};
   animation-duration: 1s;
@@ -41,4 +41,25 @@ export const Point = styled.div`
   transform: rotate(45deg);
 `;
 
-export const Recipe = styled.div``;
+export const Recipe = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  min-height: 50px;
+`;
+
+export const RecipeImage = styled.img`
+  width: 50px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+`;
+
+export const RecipeTitle = styled.p`
+  font-family: "Scada", sans-serif;
+  font-size: 1rem;
+  padding: 8px 15px;
+  text-align: center;
+  font-size: 1rem;
+  flex-grow: 1;
+`;

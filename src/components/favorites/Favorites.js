@@ -8,7 +8,12 @@ const Favorites = (props) => {
       {recipes.length === 0 ? (
         <Styled.NoRecipes>You have no favorited recipes</Styled.NoRecipes>
       ) : (
-        ""
+        recipes.map((rec) => (
+          <Styled.Recipe>
+            <Styled.RecipeImage src={rec.image_url} />
+            <Styled.RecipeTitle>{rec.title}</Styled.RecipeTitle>
+          </Styled.Recipe>
+        ))
       )}
       <Styled.Point></Styled.Point>
     </Styled.FavoritesContainer>

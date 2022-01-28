@@ -10,7 +10,7 @@ export const Card = styled.form`
 export const Title = styled.h1`
   font-size: 2rem;
   font-family: "Scada", sans-serif;
-  margin-bottom: 1rem;
+  margin-bottom: 2.5rem;
   text-align: center;
 `;
 

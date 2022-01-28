@@ -51,12 +51,13 @@ export const SearchInput = styled.input`
 
 export const Description = styled.p`
   font-size: 1.2rem;
+  text-align: center;
 `;
 
 export const RecipesContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.5rem;
+  gap: 1rem;
   justify-content: center;
 
   @media (max-width: 1000px) {
@@ -70,6 +71,25 @@ export const RecipesContainer = styled.div`
   @media (max-width: 550px) {
     grid-template-columns: 1fr;
   }
+`;
+
+export const PaginationContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+  gap: 1rem;
+`;
+
+export const Page = styled.button`
+  font-size: 1rem;
+  padding: 8px;
+  border-radius: 5px;
+  background: #d8440f;
+  font-family: "Scada", sans-serif;
+  color: white;
+  border: none;
+  outline: 0;
 `;
 
 export const PopularRecipesContainer = styled.div`

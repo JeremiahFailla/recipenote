@@ -1,9 +1,12 @@
 import React, { useRef, useState, useEffect } from "react";
 import * as Styled from "./EditAccountSettingsStyles";
-import { useSelector } from "react-redux";
-import { BsTruckFlatbed } from "react-icons/bs";
+import { useSelector, useDispatch } from "react-redux";
 import ConfirmModal from "../modals/ConfirmModal";
-import { updateDisplayName, updateUserEmail } from "../../firebase/firebase";
+import {
+  updateDisplayName,
+  updateUserEmail,
+  updateUserPassword,
+} from "../../firebase/firebase";
 import { useNavigate } from "react-router-dom";
 
 const EditAccountSettings = () => {
@@ -13,12 +16,14 @@ const EditAccountSettings = () => {
   const confirmPasswordRef = useRef();
   const [displayName, setDisplayName] = useState(user?.displayName);
   const [email, setEmail] = useState(user?.email);
+  const [password1, setPassword] = useState("");
+  const [reenteredPassword, setReenteredPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [showError, setShowError] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [showDetailedSection, setShowDetailedSection] =
-    useState(BsTruckFlatbed);
+  const [showDetailedSection, setShowDetailedSection] = useState(true);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const comparePasswords = (e) => {
     e.preventDefault();
@@ -38,6 +43,7 @@ const EditAccountSettings = () => {
 
   const showConfirmModal = (e) => {
     e.preventDefault();
+    if (!validatePassword()) return;
     setShowModal(true);
   };
 
@@ -55,10 +61,26 @@ const EditAccountSettings = () => {
     }
   };
 
+  const validatePassword = () => {
+    if (password1 !== reenteredPassword) {
+      setShowError(true);
+      setErrorMessage("Passwords Do Not Match");
+      return false;
+    }
+    if (password1.length < 8) {
+      setShowError(true);
+      setErrorMessage("New Password Must be at least 8 characters");
+      return false;
+    }
+    return true;
+  };
+
   const changeAccountDetailsHandler = async () => {
     try {
       await updateDisplayName(displayName);
       await updateUserEmail(email);
+      await updateUserPassword(password1);
+      dispatch({ type: "setUserPassword", password: password1 });
       navigate("/accountsettings", { replace: true });
     } catch (error) {
       console.log(error.message);
@@ -83,6 +105,11 @@ const EditAccountSettings = () => {
       {showDetailedSection && (
         <Styled.Card onSubmit={showConfirmModal}>
           <Styled.Title>Edit Account Details</Styled.Title>
+          {showError && (
+            <Styled.ErrorMessageContiner>
+              <Styled.ErrorMessageBar>{errorMessage}</Styled.ErrorMessageBar>
+            </Styled.ErrorMessageContiner>
+          )}
           <Styled.InfoContainer>
             <Styled.Label htmlFor="name">Display Name</Styled.Label>
             <Styled.Input
@@ -108,8 +135,28 @@ const EditAccountSettings = () => {
             />
           </Styled.InfoContainer>
           <Styled.InfoContainer>
-            <Styled.Label>Password</Styled.Label>
-            <Styled.Label>Change Password</Styled.Label>
+            <Styled.Label htmlFor="password">Password</Styled.Label>
+            <Styled.Input
+              type="password"
+              name="password"
+              id="password"
+              value={password1}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+          </Styled.InfoContainer>
+          <Styled.InfoContainer>
+            <Styled.Label htmlFor="password2">Re-enter Password</Styled.Label>
+            <Styled.Input
+              type="password"
+              name="password2"
+              id="password2"
+              value={reenteredPassword}
+              onChange={(e) => {
+                setReenteredPassword(e.target.value);
+              }}
+            />
           </Styled.InfoContainer>
           <Styled.EditButtonContainer>
             <Styled.EditButton>Save</Styled.EditButton>
