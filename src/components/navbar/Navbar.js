@@ -123,7 +123,7 @@ const Navbar = () => {
               </Styled.MobileLink>
             </li>
             <li>
-              <Styled.MobileLink to="/recipes" onClick={showMobileNavHandler}>
+              <Styled.MobileLink to="/recipes/" onClick={showMobileNavHandler}>
                 Recipes
               </Styled.MobileLink>
             </li>

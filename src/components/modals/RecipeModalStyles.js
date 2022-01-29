@@ -54,6 +54,9 @@ export const FavoriteButton = styled.button`
   color: white;
   font-family: "Scada", sans-serif;
   cursor: pointer;
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 export const UnfavoriteButton = styled.button`
@@ -65,6 +68,9 @@ export const UnfavoriteButton = styled.button`
   color: #d8440f;
   font-family: "Scada", sans-serif;
   cursor: pointer;
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 export const TimeAndServingData = styled.p`
@@ -123,6 +129,13 @@ export const Directions = styled.a`
   position: relative;
   padding: 0 10px;
   font-family: "Scada", sans-serif;
+  border: 1px solid #d8440f;
+  border-radius: 5px;
+  color: #d8440f;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 export const LikeAndReviewsContainer = styled.div`
@@ -146,6 +159,9 @@ export const Likes = styled(AiFillHeart)`
   & > * {
     color: #d8440f;
   }
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 export const ReviewsButton = styled.button`
@@ -157,4 +173,7 @@ export const ReviewsButton = styled.button`
   font-size: 1.2rem;
   font-family: "Scada", sans-serif;
   cursor: pointer;
+  &:hover {
+    transform: scale(1.05);
+  }
 `;

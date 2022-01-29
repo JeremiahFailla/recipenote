@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from "react";
 import Recipe from "./../recipe/Recipe";
 import * as Styled from "./RecipesContentStyles";
+import { useParams } from "react-router-dom";
 
 const RecipesContent = () => {
-  const [showRecipes, setShowRecipes] = useState(true);
-  const [searchRecipe, setSearchRecipe] = useState("");
+  const [searchRecipe, setSearchRecipe] = useState(useParams().search);
   const [recipes, setRecipes] = useState([]);
   const [pages, setPages] = useState({
     currentPage: 0,
     notFirstPage: 0,
   });
+  const searchParameter = useParams().search;
 
-  const fetchRecipes = async (e) => {
-    e.preventDefault();
+  const fetchRecipes = async (e = false) => {
+    if (e) {
+      e.preventDefault();
+    }
+
     try {
       const KEY = "d64f14ae-0c48-436d-8097-4690e389d775";
       const url = `https://forkify-api.herokuapp.com/api/v2/recipes?search=${searchRecipe}&key=${KEY}`;
@@ -33,6 +37,12 @@ const RecipesContent = () => {
       };
     });
   }, [recipes]);
+
+  useEffect(() => {
+    if (searchParameter) {
+      fetchRecipes();
+    }
+  }, []);
 
   const prevBtnHandler = () => {
     if (pages.currentPage === 0) return;

@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import * as Styled from "./ShowCaseStyles.js";
 import * as Spinner from "./../utils/Utils";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const ShowCase = () => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const alreadyLoaded = useSelector((state) => state.siteLoaded);
+  const navigate = useNavigate();
+  const [recipe, setRecipe] = useState("");
 
   const hideSpinnerHandler = () => {
     setTimeout(() => {
@@ -19,6 +22,11 @@ const ShowCase = () => {
       dispatch({ type: "siteLoaded" });
     };
   }, []);
+
+  const searchRecipes = (e) => {
+    e.preventDefault();
+    navigate(`/recipes/${recipe}`);
+  };
 
   return (
     <React.Fragment>
@@ -42,11 +50,16 @@ const ShowCase = () => {
             “I'm not an amazing cook. But I can follow a recipe!”
           </Styled.Quote>
           <Styled.QuoteName>- Rachel McAdams</Styled.QuoteName>
-          <Styled.SeachBar>
+          <Styled.SeachBar onSubmit={searchRecipes}>
             <Styled.SubmitButton>
               <Styled.SearchIcon />
             </Styled.SubmitButton>
-            <Styled.SearchInput type="text" placeholder="Find Recipe" />
+            <Styled.SearchInput
+              type="text"
+              placeholder="Find Recipe"
+              value={recipe}
+              onChange={(e) => setRecipe(e.target.value)}
+            />
           </Styled.SeachBar>
         </Styled.TextContent>
       </Styled.Card>
