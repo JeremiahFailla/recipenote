@@ -190,3 +190,5 @@ export const ReviewsButton = styled.button`
     transform: scale(1.05);
   }
 `;
+
+export const ReviewContainer = styled.div``;

@@ -4,11 +4,14 @@ import ReactDOM from "react-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { doc, getDoc, setDoc, updateDoc, increment } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
+import Review from "../review/Review";
+import ReviewInput from "../review/ReviewInput";
 
 const RecipeModal = (props) => {
   const modalId = document.getElementById("modals");
   const favorites = useSelector((state) => state.favorites);
   const [inFavorites, setInFavorites] = useState(false);
+  const [showReviews, setShowReviews] = useState(false);
   const [liked, setLiked] = useState(false);
   const [recipeData, setRecipeData] = useState({
     id: props.recipe.id,
@@ -91,6 +94,20 @@ const RecipeModal = (props) => {
     }
   };
 
+  const addReview = (review) => {
+    setRecipeData((prevState) => {
+      prevState.reviews.unshift(review);
+      return {
+        ...prevState,
+        reviews: prevState.reviews,
+      };
+    });
+  };
+
+  useEffect(() => {
+    console.log(recipeData);
+  }, [recipeData]);
+
   useEffect(() => {
     getData();
     document.querySelector("body").style.overflow = "hidden";
@@ -144,10 +161,18 @@ const RecipeModal = (props) => {
             {recipeData.likes} {!liked && <Styled.Unlike onClick={hitLike} />}
             {liked && <Styled.Like onClick={hitLike} />}
           </span>
-          <Styled.ReviewsButton>
+          <Styled.ReviewsButton onClick={() => setShowReviews(!showReviews)}>
             {recipeData.reviews.length} Reviews
           </Styled.ReviewsButton>
         </Styled.LikeAndReviewsContainer>
+        {showReviews && (
+          <div style={{ marginTop: "1rem" }}>
+            <ReviewInput addReview={addReview} />
+            {recipeData.reviews.map((review) => (
+              <Review content={review} key={review} />
+            ))}
+          </div>
+        )}
       </Styled.Content>
     </Styled.Backdrop>,
     modalId

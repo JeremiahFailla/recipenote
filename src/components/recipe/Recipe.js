@@ -43,12 +43,8 @@ const Recipe = (props) => {
         </Styled.ImageContainer>
         <Styled.Title>{props.title}</Styled.Title>
         <Styled.Extra>
-          <span>
-            0 <Styled.Likes />
-          </span>
-          <span>
-            0 <Styled.Comments />
-          </span>
+          <Styled.Likes />
+          <Styled.Comments />
         </Styled.Extra>
       </Styled.Card>
     </React.Fragment>
