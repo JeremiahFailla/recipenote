@@ -6,6 +6,10 @@ import { useParams } from "react-router-dom";
 const RecipesContent = () => {
   const [searchRecipe, setSearchRecipe] = useState(useParams().search);
   const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [description, setDescription] = useState(
+    "Use the above search bar to search for a recipe"
+  );
   const [pages, setPages] = useState({
     currentPage: 0,
     notFirstPage: 0,
@@ -13,6 +17,7 @@ const RecipesContent = () => {
   const searchParameter = useParams().search;
 
   const fetchRecipes = async (e = false) => {
+    setLoading(true);
     if (e) {
       e.preventDefault();
     }
@@ -26,6 +31,8 @@ const RecipesContent = () => {
     } catch (error) {
       console.log(error.message);
     }
+    setDescription("No recipes found!");
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -84,9 +91,10 @@ const RecipesContent = () => {
         />
       </Styled.InputContainer>
       {recipes.length === 0 ? (
-        <Styled.Description>
-          Use the above search bar to search for a recipe
-        </Styled.Description>
+        <React.Fragment>
+          {loading && <Styled.Loader />}
+          {!loading && <Styled.Description>{description}</Styled.Description>}
+        </React.Fragment>
       ) : (
         <React.Fragment>
           <Styled.RecipesContainer>

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { AiFillHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 export const Backdrop = styled.div`
   position: fixed;
@@ -151,7 +151,20 @@ export const LikeAndReviewsContainer = styled.div`
   }
 `;
 
-export const Likes = styled(AiFillHeart)`
+export const Like = styled(AiFillHeart)`
+  font-size: 1.4rem;
+  margin-bottom: -2px;
+  cursor: pointer;
+
+  & > * {
+    color: #d8440f;
+  }
+  &:hover {
+    transform: scale(1.1);
+  }
+`;
+
+export const Unlike = styled(AiOutlineHeart)`
   font-size: 1.4rem;
   margin-bottom: -2px;
   cursor: pointer;

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { FaSearch } from "react-icons/fa";
 
 export const Card = styled.div`
@@ -139,4 +139,23 @@ export const Recipe = styled.p`
     color: #d8440f;
     border-color: #d8440f;
   }
+`;
+
+const rotate = keyframes`
+  0% {
+    transform: rotate(0deg)
+  }
+  100% {
+    transform: rotate(360deg)
+  }
+`;
+
+export const Loader = styled.div`
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 20px solid #fdd87e;
+  border-top: 20px solid #d8440f;
+  animation: ${rotate} 1s linear infinite;
+  margin: 0 auto;
 `;
