@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 export const Backdrop = styled.div`
   position: fixed;
@@ -37,9 +38,13 @@ export const Image = styled.img`
 `;
 
 export const Container = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  /* display: grid; */
+  /* grid-template-columns: repeat(3, 1fr); */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   gap: 1rem;
+  flex-wrap: wrap;
   width: 100%;
   padding: 0.1rem 0 0.4rem;
   border-bottom: 1px solid black;
@@ -181,6 +186,7 @@ export const ReviewsButton = styled.button`
   padding: 3px 15px;
   background: #fdd87e;
   border-radius: 20000px;
+  white-space: nowrap;
   border: none;
   outline: 0;
   font-size: 1.2rem;
@@ -191,4 +197,20 @@ export const ReviewsButton = styled.button`
   }
 `;
 
-export const ReviewContainer = styled.div``;
+export const NotLoggedIn = styled.p`
+  text-align: center;
+  font-size: 1.1rem;
+  font-family: "Scada", sans-serif;
+`;
+
+export const NoReviews = styled.p`
+  font-size: 1rem;
+  font-family: "Scada", sans-serif;
+  padding: 1rem 1rem 0;
+`;
+
+export const LoginLink = styled(Link)`
+  font-size: 1.1rem;
+  font-family: "Scada", sans-serif;
+  color: #d8440f;
+`;

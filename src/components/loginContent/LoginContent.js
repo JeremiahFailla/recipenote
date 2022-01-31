@@ -1,9 +1,10 @@
 import * as Styled from "./LoginContentStyle";
 import { useRef, useState, useEffect } from "react";
-import { login, auth } from "../../firebase/firebase";
+import { login, auth, db } from "../../firebase/firebase";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setPersistence, browserSessionPersistence } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 
 const LoginContent = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -24,8 +25,19 @@ const LoginContent = () => {
     }
   }, [showError]);
 
-  const setUser = (user) => {
-    dispatch({ type: "setUser", user: user });
+  const setUser = async (user) => {
+    const docRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(docRef);
+    let reviews = [];
+    if (docSnap.exists()) {
+      reviews = docSnap.data().reviews;
+      console.log(reviews);
+      sessionStorage.setItem("reviews", JSON.stringify(reviews));
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
+    dispatch({ type: "setUser", user: user, reviews: reviews });
   };
 
   const setUserPassword = () => {

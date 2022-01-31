@@ -2,9 +2,11 @@ import * as Styled from "./JoinNowContentStyles";
 import * as MoreStyled from "./../loginContent/LoginContentStyle";
 import { useRef, useState, useEffect } from "react";
 import { signUp, updateDisplayName, auth } from "./../../firebase/firebase";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setPersistence, browserSessionPersistence } from "firebase/auth";
+import { db } from "../../firebase/firebase";
 
 const JoinNowContent = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -18,6 +20,27 @@ const JoinNowContent = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const setFirebaseUser = async (user) => {
+    try {
+      const docRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such user!");
+        // Add a new document in collection "cities"
+        await setDoc(doc(db, "users", user.uid), {
+          id: user.uid,
+          reviews: [],
+        });
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   useEffect(() => {
     if (showError === true) {
       setTimeout(() => {
@@ -27,7 +50,7 @@ const JoinNowContent = () => {
   }, [showError]);
 
   const setUser = (user) => {
-    dispatch({ type: "setUser", user: user });
+    dispatch({ type: "setUser", user: user, reviews: [] });
   };
 
   const setUserPassword = () => {
@@ -51,8 +74,11 @@ const JoinNowContent = () => {
         passwordRef.current.value
       );
       await updateDisplayName(displayNameRef.current.value);
+      setFirebaseUser(user.user);
       setUser(user.user);
       setUserPassword();
+      const reviews = [];
+      sessionStorage.setItem("reviews", JSON.stringify(reviews));
       sessionStorage.setItem("up", passwordRef.current.value);
       navigate("/", { replace: true });
     } catch (error) {

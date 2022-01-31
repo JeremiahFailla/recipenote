@@ -10,6 +10,7 @@ import ReviewInput from "../review/ReviewInput";
 const RecipeModal = (props) => {
   const modalId = document.getElementById("modals");
   const favorites = useSelector((state) => state.favorites);
+  const user = useSelector((state) => state.user);
   const [inFavorites, setInFavorites] = useState(false);
   const [showReviews, setShowReviews] = useState(false);
   const [liked, setLiked] = useState(false);
@@ -40,6 +41,29 @@ const RecipeModal = (props) => {
           reviews: [],
         });
       }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const setRecipeReviews = async () => {
+    try {
+      const docRef = doc(db, "recipes", props.recipe.id);
+      await updateDoc(docRef, {
+        reviews: recipeData.reviews,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const setUserReviews = async (reviews) => {
+    try {
+      const docRef = doc(db, "users", user.uid);
+      // Set the "reviews" field to the update reviews
+      await updateDoc(docRef, {
+        reviews: reviews,
+      });
     } catch (error) {
       console.log(error.message);
     }
@@ -95,6 +119,10 @@ const RecipeModal = (props) => {
   };
 
   const addReview = (review) => {
+    const reviews = JSON.parse(sessionStorage.getItem("reviews"));
+    reviews.push(review);
+    sessionStorage.setItem("reviews", JSON.stringify(reviews));
+    dispatch({ type: "setReviews", reviews: reviews });
     setRecipeData((prevState) => {
       prevState.reviews.unshift(review);
       return {
@@ -102,6 +130,8 @@ const RecipeModal = (props) => {
         reviews: prevState.reviews,
       };
     });
+    setUserReviews(reviews);
+    setRecipeReviews();
   };
 
   useEffect(() => {
@@ -132,12 +162,12 @@ const RecipeModal = (props) => {
           <Styled.TimeAndServingData>
             Serving Size: {props.recipe.servings}
           </Styled.TimeAndServingData>
-          {!inFavorites && (
+          {!inFavorites && user && (
             <Styled.FavoriteButton onClick={addToFavorites}>
               Add to Favorites
             </Styled.FavoriteButton>
           )}
-          {inFavorites && (
+          {inFavorites && user && (
             <Styled.UnfavoriteButton onClick={removeFromFavorites}>
               Unfavorite
             </Styled.UnfavoriteButton>
@@ -167,7 +197,17 @@ const RecipeModal = (props) => {
         </Styled.LikeAndReviewsContainer>
         {showReviews && (
           <div style={{ marginTop: "1rem" }}>
-            <ReviewInput addReview={addReview} />
+            {user ? (
+              <ReviewInput addReview={addReview} />
+            ) : (
+              <Styled.NotLoggedIn>
+                <Styled.LoginLink to="/login">Login </Styled.LoginLink>to write
+                a review
+              </Styled.NotLoggedIn>
+            )}
+            {recipeData.reviews.length === 0 && (
+              <Styled.NoReviews>No Reviews</Styled.NoReviews>
+            )}
             {recipeData.reviews.map((review) => (
               <Review content={review} key={review} />
             ))}

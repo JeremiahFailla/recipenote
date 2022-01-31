@@ -22,7 +22,13 @@ const recipeReducer = (state = defaultState, action) => {
   if (action.type === "setUser") {
     return {
       ...state,
-      user: action.user,
+      user: { ...action.user, reviews: action.reviews },
+    };
+  }
+  if (action.tpye === "setReviews") {
+    return {
+      ...state,
+      user: { ...state.user, reviews: action.reviews },
     };
   }
   if (action.type === "setUserPassword") {

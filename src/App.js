@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebase";
 import { useDispatch } from "react-redux";
-import React from "react";
+import React, { useState } from "react";
 
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -20,9 +20,11 @@ function App() {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       const password = sessionStorage.getItem("up");
+      const reviews = JSON.parse(sessionStorage.getItem("reviews"));
+      console.log(reviews);
       dispatch({ type: "setUserPassword", password: password });
       console.log(user);
-      dispatch({ type: "setUser", user: user });
+      dispatch({ type: "setUser", user: user, reviews: reviews });
     } else {
       dispatch({ type: "setLogout" });
     }
