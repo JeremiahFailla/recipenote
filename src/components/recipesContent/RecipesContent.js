@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Recipe from "./../recipe/Recipe";
 import * as Styled from "./RecipesContentStyles";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const RecipesContent = () => {
   const [searchRecipe, setSearchRecipe] = useState(useParams().search);
+  const [searchParameter, setSearchParameter] = useState(useParams().search);
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [description, setDescription] = useState(
@@ -14,8 +15,9 @@ const RecipesContent = () => {
     currentPage: 0,
     notFirstPage: 0,
   });
-  const searchParameter = useParams().search;
+  const navigate = useNavigate();
   const recipeId = useParams().id;
+  const search = useParams().search;
 
   const fetchRecipes = async (e = false) => {
     setLoading(true);
@@ -37,7 +39,6 @@ const RecipesContent = () => {
   };
 
   useEffect(() => {
-    console.log("Number of Recipes ", recipes.length);
     setPages((prevPages) => {
       return {
         ...prevPages,
@@ -50,7 +51,18 @@ const RecipesContent = () => {
     if (searchParameter) {
       fetchRecipes();
     }
-  }, []);
+  }, [searchParameter]);
+
+  useEffect(() => {
+    setSearchParameter(search);
+    setSearchRecipe(search);
+  }, [search]);
+
+  useEffect(() => {
+    if (searchRecipe !== searchParameter) {
+      fetchRecipes();
+    }
+  }, [searchRecipe]);
 
   const prevBtnHandler = () => {
     if (pages.currentPage === 0) return;
@@ -128,24 +140,44 @@ const RecipesContent = () => {
         <Styled.PopularRecipeListContainer>
           <Styled.PopularRecipeList>
             <span>
-              - <Styled.Recipe>Steak Bites</Styled.Recipe>
+              -{" "}
+              <Styled.Recipe onClick={() => navigate("/recipes/streak bites")}>
+                Steak Bites
+              </Styled.Recipe>
             </span>
             <span>
-              - <Styled.Recipe>Mini Donuts</Styled.Recipe>
+              -{" "}
+              <Styled.Recipe onClick={() => navigate("/recipes/mini donuts")}>
+                Mini Donuts
+              </Styled.Recipe>
             </span>
             <span>
-              - <Styled.Recipe>Blueberry Pie</Styled.Recipe>
+              -{" "}
+              <Styled.Recipe onClick={() => navigate("/recipes/blueberry pie")}>
+                Blueberry Pie
+              </Styled.Recipe>
             </span>
           </Styled.PopularRecipeList>
           <Styled.PopularRecipeList>
             <span>
-              - <Styled.Recipe>Spicy Chicken</Styled.Recipe>
+              -{" "}
+              <Styled.Recipe onClick={() => navigate("/recipes/spicy chicken")}>
+                Spicy Chicken
+              </Styled.Recipe>
             </span>
             <span>
-              - <Styled.Recipe>Bacon Wrapped Hamburger</Styled.Recipe>
+              -{" "}
+              <Styled.Recipe
+                onClick={() => navigate("/recipes/bacon wrapped hamburger")}
+              >
+                Bacon Wrapped Hamburger
+              </Styled.Recipe>
             </span>
             <span>
-              - <Styled.Recipe>Apple Crumble</Styled.Recipe>
+              -{" "}
+              <Styled.Recipe onClick={() => navigate("/recipes/apple crumble")}>
+                Apple Crumble
+              </Styled.Recipe>
             </span>
           </Styled.PopularRecipeList>
         </Styled.PopularRecipeListContainer>

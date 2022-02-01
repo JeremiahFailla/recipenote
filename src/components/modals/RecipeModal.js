@@ -36,11 +36,8 @@ const RecipeModal = (props) => {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
         setRecipeData(docSnap.data());
       } else {
-        console.log("No such document!");
-        // Add a new document in collection "cities"
         await setDoc(doc(db, "recipes", props.recipe.id), {
           id: props.recipe.id,
           likes: 0,
@@ -169,10 +166,6 @@ const RecipeModal = (props) => {
     setUserReviews(reviews);
     setRecipeReviews();
   };
-
-  useEffect(() => {
-    console.log(recipeData);
-  }, [recipeData]);
 
   useEffect(() => {
     getData();

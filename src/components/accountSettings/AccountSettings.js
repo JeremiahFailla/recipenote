@@ -16,7 +16,6 @@ const AccountSettings = () => {
   const [updateData, setUpdateData] = useState(false);
   const password = useSelector((state) => state.password);
   const starredPassword = starPassword(password).join("");
-  console.log(user);
 
   useEffect(() => {
     if (updateData) {

@@ -31,7 +31,7 @@ export const NoRecipes = styled.p`
 export const Point = styled.div`
   position: absolute;
   top: -5px;
-  right: 40px;
+  right: ${(props) => props.point || "40"}px;
   border: 1px solid black;
   border-right: none;
   border-bottom: none;

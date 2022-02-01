@@ -22,13 +22,17 @@ export const InputContainer = styled.form`
   grid-template-columns: auto auto;
   justify-content: center;
   padding: 1rem 2rem 2rem;
+
+  @media (max-width: 420px) {
+    padding: 1rem 0 2rem;
+  }
 `;
 
 export const SearchButton = styled.button`
   display: inline-block;
   height: 100%;
   background: #d8440f;
-  padding: 9px 15px;
+  padding: 9px 10px;
   border-radius: 5px 0 0 5px;
   border: none;
   outline: 0;
@@ -104,6 +108,7 @@ export const PopularRecipesContainer = styled.div`
 
   @media (max-width: 580px) {
     flex-direction: column;
+    gap: 1rem;
   }
 `;
 
@@ -116,8 +121,9 @@ export const PopularRecipeListContainer = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: 3rem;
 
-  @media (max-width: 580px) {
+  @media (max-width: 600px) {
     grid-template-columns: repeat(1, 1fr);
+    gap: 0;
   }
 `;
 
@@ -126,6 +132,10 @@ export const PopularRecipeList = styled.div`
   flex-grow: 1;
   flex-direction: column;
   justify-content: center;
+
+  & span {
+    white-space: nowrap;
+  }
 `;
 
 export const Recipe = styled.p`

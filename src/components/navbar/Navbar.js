@@ -103,7 +103,7 @@ const Navbar = () => {
         </Styled.Ul>
         <Styled.FavoritesContainer>
           <Styled.FavoritesIcon onClick={showFavoritesMobileHandle} />
-          {showFavoritesMobile && <Favorites mobile={-32} />}
+          {showFavoritesMobile && <Favorites mobile={-92} point={100} />}
         </Styled.FavoritesContainer>
         {userState && (
           <Styled.PersonIconContainer onClick={showUserBoxHandler}>

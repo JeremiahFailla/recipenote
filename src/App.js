@@ -19,7 +19,6 @@ function App() {
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      console.log(user);
       const password = sessionStorage.getItem("up");
       const reviews = JSON.parse(sessionStorage.getItem("reviews"));
       const favorites = JSON.parse(sessionStorage.getItem("favorites"));

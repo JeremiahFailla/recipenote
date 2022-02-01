@@ -27,7 +27,7 @@ const Favorites = (props) => {
           </Styled.Recipe>
         ))
       )}
-      <Styled.Point></Styled.Point>
+      <Styled.Point point={props.point}></Styled.Point>
     </Styled.FavoritesContainer>
   );
 };
