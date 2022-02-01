@@ -34,6 +34,7 @@ const JoinNowContent = () => {
         await setDoc(doc(db, "users", user.uid), {
           id: user.uid,
           reviews: [],
+          favorites: [],
         });
       }
     } catch (error) {

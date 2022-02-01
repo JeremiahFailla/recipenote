@@ -47,19 +47,34 @@ const Navbar = () => {
     setShowUserBox(false);
   };
 
+  const closeAll = () => {
+    setShowMobileNav(false);
+    setShowUserBox(false);
+    setShowFavorites(false);
+    setShowFavoritesMobile(false);
+  };
+
   return (
     <Styled.Header>
       <Styled.Nav>
-        <Styled.Logo to="/">RecipeNote</Styled.Logo>
+        <Styled.Logo to="/" onClick={closeAll}>
+          RecipeNote
+        </Styled.Logo>
         <Styled.Ul>
           <li>
-            <Styled.Navlink to="/">Home</Styled.Navlink>
+            <Styled.Navlink to="/" onClick={closeAll}>
+              Home
+            </Styled.Navlink>
           </li>
           <li>
-            <Styled.Navlink to="/about">About</Styled.Navlink>
+            <Styled.Navlink to="/about" onClick={closeAll}>
+              About
+            </Styled.Navlink>
           </li>
           <li>
-            <Styled.Navlink to="/recipes">Recipes</Styled.Navlink>
+            <Styled.Navlink to="/recipes" onClick={closeAll}>
+              Recipes
+            </Styled.Navlink>
           </li>
           {userState && (
             <li>
@@ -67,19 +82,19 @@ const Navbar = () => {
                 <Styled.Favorites onClick={showFavoritesHandler}>
                   Favorited
                 </Styled.Favorites>
-                {showFavorites && <Favorites />}
+                {showFavorites && <Favorites close={closeAll} />}
               </Styled.FavoritesContainer>
             </li>
           )}
           {!userState && (
             <React.Fragment>
               <li>
-                <Styled.NavButton to="/login" secondary>
+                <Styled.NavButton to="/login" onClick={closeAll} secondary>
                   Login
                 </Styled.NavButton>
               </li>
               <li>
-                <Styled.NavButton to="/joinnow" primary last>
+                <Styled.NavButton to="/joinnow" onClick={closeAll} primary last>
                   Join Now
                 </Styled.NavButton>
               </li>
@@ -98,7 +113,7 @@ const Navbar = () => {
                 <Styled.Username>
                   Hello, {userState.displayName}
                 </Styled.Username>
-                <Styled.UserAccount to="/accountsettings">
+                <Styled.UserAccount to="/accountsettings" onClick={closeAll}>
                   Account Details
                 </Styled.UserAccount>
                 <Styled.LogoutButton onClick={userLogoutHandler}>

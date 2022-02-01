@@ -2,7 +2,15 @@ import React, { useEffect, useState } from "react";
 import * as Styled from "./RecipeModalStyles";
 import ReactDOM from "react-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { doc, getDoc, setDoc, updateDoc, increment } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  increment,
+  arrayUnion,
+  arrayRemove,
+} from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import Review from "../review/Review";
 import ReviewInput from "../review/ReviewInput";
@@ -31,7 +39,6 @@ const RecipeModal = (props) => {
         console.log("Document data:", docSnap.data());
         setRecipeData(docSnap.data());
       } else {
-        // doc.data() will be undefined in this case
         console.log("No such document!");
         // Add a new document in collection "cities"
         await setDoc(doc(db, "recipes", props.recipe.id), {
@@ -88,12 +95,41 @@ const RecipeModal = (props) => {
     }
   };
 
+  const addFavoritesInFirebase = async (recipe) => {
+    const userRef = doc(db, "users", user.uid);
+    try {
+      await updateDoc(userRef, {
+        favorites: arrayUnion(recipe),
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const removeFavoritesInFirebase = async (recipe) => {
+    const userRef = doc(db, "users", user.uid);
+    try {
+      await updateDoc(userRef, {
+        favorites: arrayRemove(recipe),
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   const addToFavorites = () => {
     dispatch({ type: "addFavorite", recipe: props.recipe });
+    sessionStorage.setItem("favorites", JSON.stringify(favorites));
+    addFavoritesInFirebase(props.recipe);
   };
 
   const removeFromFavorites = () => {
     dispatch({ type: "removeFavorite", id: props.recipe.id });
+    const newFavorites = favorites.filter((rec) => {
+      return rec.id !== props.recipe.id;
+    });
+    sessionStorage.setItem("favorites", JSON.stringify(newFavorites));
+    removeFavoritesInFirebase(props.recipe);
   };
 
   const hitLike = () => {

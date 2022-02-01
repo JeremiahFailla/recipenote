@@ -37,6 +37,12 @@ const recipeReducer = (state = defaultState, action) => {
       password: action.password,
     };
   }
+  if (action.type === "setFavorites") {
+    return {
+      ...state,
+      favorites: action.favorites,
+    };
+  }
   if (action.type === "addFavorite") {
     const favorites = [action.recipe, ...state.favorites];
     return {

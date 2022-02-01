@@ -34,6 +34,12 @@ const Recipe = (props) => {
     }
   };
 
+  useEffect(() => {
+    if (props.recipeId) {
+      fetchRecipe();
+    }
+  }, [props.recideId]);
+
   return (
     <React.Fragment>
       {showRecipeModal && <RecipeModal recipe={recipe} close={closeModal} />}

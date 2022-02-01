@@ -90,6 +90,7 @@ export const Page = styled.button`
   color: white;
   border: none;
   outline: 0;
+  cursor: pointer;
 `;
 
 export const PopularRecipesContainer = styled.div`

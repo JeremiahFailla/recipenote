@@ -15,6 +15,7 @@ const RecipesContent = () => {
     notFirstPage: 0,
   });
   const searchParameter = useParams().search;
+  const recipeId = useParams().id;
 
   const fetchRecipes = async (e = false) => {
     setLoading(true);
@@ -110,6 +111,7 @@ const RecipesContent = () => {
                   title={rec.title}
                   id={rec.id}
                   key={rec.id}
+                  recipeId={recipeId === rec.id ? true : false}
                 />
               ))}
           </Styled.RecipesContainer>

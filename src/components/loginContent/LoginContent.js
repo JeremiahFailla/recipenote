@@ -29,15 +29,19 @@ const LoginContent = () => {
     const docRef = doc(db, "users", user.uid);
     const docSnap = await getDoc(docRef);
     let reviews = [];
+    let favorites = [];
     if (docSnap.exists()) {
       reviews = docSnap.data().reviews;
-      console.log(reviews);
+      favorites = docSnap.data().favorites;
+      console.log(reviews, favorites);
       sessionStorage.setItem("reviews", JSON.stringify(reviews));
+      sessionStorage.setItem("favorites", JSON.stringify(favorites));
     } else {
       // doc.data() will be undefined in this case
       console.log("No such document!");
     }
     dispatch({ type: "setUser", user: user, reviews: reviews });
+    dispatch({ type: "setFavorites", favorites: favorites });
   };
 
   const setUserPassword = () => {

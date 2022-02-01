@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebase";
 import { useDispatch } from "react-redux";
-import React, { useState } from "react";
+import React from "react";
 
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -19,12 +19,14 @@ function App() {
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
+      console.log(user);
       const password = sessionStorage.getItem("up");
       const reviews = JSON.parse(sessionStorage.getItem("reviews"));
-      console.log(reviews);
+      const favorites = JSON.parse(sessionStorage.getItem("favorites"));
+
       dispatch({ type: "setUserPassword", password: password });
-      console.log(user);
       dispatch({ type: "setUser", user: user, reviews: reviews });
+      dispatch({ type: "setFavorites", favorites: favorites });
     } else {
       dispatch({ type: "setLogout" });
     }
@@ -36,6 +38,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/recipes/:search" element={<Recipes />} />
+        <Route path="/recipes/:search/:id" element={<Recipes />} />
         <Route path="/recipes" element={<Recipes />} />
         <Route path="/login" element={<Login />} />
         <Route path="/joinnow" element={<JoinNow />} />

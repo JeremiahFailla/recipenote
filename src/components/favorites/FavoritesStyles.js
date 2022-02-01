@@ -47,6 +47,13 @@ export const Recipe = styled.div`
   justify-content: center;
   padding: 10px;
   min-height: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: #e7e7e7;
+    border-radius: 5px;
+  }
 `;
 
 export const RecipeImage = styled.img`
