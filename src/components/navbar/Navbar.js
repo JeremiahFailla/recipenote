@@ -17,16 +17,15 @@ const Navbar = () => {
 
   const showMobileNavHandler = () => {
     setShowMobileNav(!showMobileNav);
-    setShowUserBox(false);
-    setShowFavorites(false);
-    setShowFavoritesMobile(false);
   };
 
   const showUserBoxHandler = () => {
     setShowMobileNav(false);
     setShowUserBox(!showUserBox);
-    setShowFavorites(false);
-    setShowFavoritesMobile(false);
+  };
+
+  const closeUserBox = () => {
+    setShowUserBox(false);
   };
 
   const userLogoutHandler = () => {
@@ -37,44 +36,25 @@ const Navbar = () => {
 
   const showFavoritesHandler = () => {
     setShowFavorites(!showFavorites);
-    setShowMobileNav(false);
-    setShowUserBox(false);
   };
 
   const showFavoritesMobileHandle = () => {
     setShowFavoritesMobile(!showFavoritesMobile);
-    setShowMobileNav(false);
-    setShowUserBox(false);
-  };
-
-  const closeAll = () => {
-    setShowMobileNav(false);
-    setShowUserBox(false);
-    setShowFavorites(false);
-    setShowFavoritesMobile(false);
   };
 
   return (
     <Styled.Header>
       <Styled.Nav>
-        <Styled.Logo to="/" onClick={closeAll}>
-          RecipeNote
-        </Styled.Logo>
+        <Styled.Logo to="/">RecipeNote</Styled.Logo>
         <Styled.Ul>
           <li>
-            <Styled.Navlink to="/" onClick={closeAll}>
-              Home
-            </Styled.Navlink>
+            <Styled.Navlink to="/">Home</Styled.Navlink>
           </li>
           <li>
-            <Styled.Navlink to="/about" onClick={closeAll}>
-              About
-            </Styled.Navlink>
+            <Styled.Navlink to="/about">About</Styled.Navlink>
           </li>
           <li>
-            <Styled.Navlink to="/recipes" onClick={closeAll}>
-              Recipes
-            </Styled.Navlink>
+            <Styled.Navlink to="/recipes">Recipes</Styled.Navlink>
           </li>
           {userState && (
             <li>
@@ -82,19 +62,19 @@ const Navbar = () => {
                 <Styled.Favorites onClick={showFavoritesHandler}>
                   Favorited
                 </Styled.Favorites>
-                {showFavorites && <Favorites close={closeAll} />}
+                {showFavorites && <Favorites close={showFavoritesHandler} />}
               </Styled.FavoritesContainer>
             </li>
           )}
           {!userState && (
             <React.Fragment>
               <li>
-                <Styled.NavButton to="/login" onClick={closeAll} secondary>
+                <Styled.NavButton to="/login" secondary>
                   Login
                 </Styled.NavButton>
               </li>
               <li>
-                <Styled.NavButton to="/joinnow" onClick={closeAll} primary last>
+                <Styled.NavButton to="/joinnow" primary last>
                   Join Now
                 </Styled.NavButton>
               </li>
@@ -109,18 +89,21 @@ const Navbar = () => {
           <Styled.PersonIconContainer onClick={showUserBoxHandler}>
             <Styled.PersonIcon />
             {showUserBox && (
-              <Styled.UserLogoutContainer>
-                <Styled.Username>
-                  Hello, {userState.displayName}
-                </Styled.Username>
-                <Styled.UserAccount to="/accountsettings" onClick={closeAll}>
-                  Account Details
-                </Styled.UserAccount>
-                <Styled.LogoutButton onClick={userLogoutHandler}>
-                  Logout
-                </Styled.LogoutButton>
-                <Styled.Point></Styled.Point>
-              </Styled.UserLogoutContainer>
+              <React.Fragment>
+                <Styled.Backdrop onClick={closeUserBox} />
+                <Styled.UserContainer>
+                  <Styled.Username>
+                    Hello, {userState.displayName}
+                  </Styled.Username>
+                  <Styled.UserAccount to="/accountsettings">
+                    Account Details
+                  </Styled.UserAccount>
+                  <Styled.LogoutButton onClick={userLogoutHandler}>
+                    Logout
+                  </Styled.LogoutButton>
+                  <Styled.Point></Styled.Point>
+                </Styled.UserContainer>
+              </React.Fragment>
             )}
           </Styled.PersonIconContainer>
         )}

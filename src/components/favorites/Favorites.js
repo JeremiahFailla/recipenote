@@ -13,22 +13,25 @@ const Favorites = (props) => {
   };
 
   return (
-    <Styled.FavoritesContainer mobile={props.mobile}>
-      {recipes.length === 0 ? (
-        <Styled.NoRecipes>You have no favorited recipes</Styled.NoRecipes>
-      ) : (
-        recipes.map((rec) => (
-          <Styled.Recipe
-            key={rec.id}
-            onClick={() => showRecipeHandler(rec.title, rec.id)}
-          >
-            <Styled.RecipeImage src={rec.image_url} />
-            <Styled.RecipeTitle>{rec.title}</Styled.RecipeTitle>
-          </Styled.Recipe>
-        ))
-      )}
-      <Styled.Point point={props.point}></Styled.Point>
-    </Styled.FavoritesContainer>
+    <React.Fragment>
+      <Styled.Backdrop onClick={props.close} />
+      <Styled.FavoritesContainer mobile={props.mobile}>
+        {recipes.length === 0 ? (
+          <Styled.NoRecipes>You have no favorited recipes</Styled.NoRecipes>
+        ) : (
+          recipes.map((rec) => (
+            <Styled.Recipe
+              key={rec.id}
+              onClick={() => showRecipeHandler(rec.title, rec.id)}
+            >
+              <Styled.RecipeImage src={rec.image_url} />
+              <Styled.RecipeTitle>{rec.title}</Styled.RecipeTitle>
+            </Styled.Recipe>
+          ))
+        )}
+        <Styled.Point point={props.point}></Styled.Point>
+      </Styled.FavoritesContainer>
+    </React.Fragment>
   );
 };
 

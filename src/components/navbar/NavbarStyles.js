@@ -107,7 +107,7 @@ export const PersonIconContainer = styled.div`
   position: relative;
 `;
 
-export const UserLogoutContainer = styled.div`
+export const UserContainer = styled.div`
   position: absolute;
   top: 35px;
   right: -15px;
@@ -118,6 +118,18 @@ export const UserLogoutContainer = styled.div`
   animation-duration: 1s;
   animation-fill-mode: forwards;
   border-radius: 5px;
+  z-index: 8000;
+`;
+
+export const Backdrop = styled.div`
+  position: fixed;
+  inset: 0;
+  background: #75757561;
+  z-index: 7000;
+  opacity: 0;
+  animation: ${show};
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
 `;
 
 export const Point = styled.div`

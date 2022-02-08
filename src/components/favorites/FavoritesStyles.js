@@ -6,6 +6,17 @@ const show = keyframes`
   }
 `;
 
+export const Backdrop = styled.div`
+  position: fixed;
+  inset: 0;
+  background: #75757561;
+  z-index: 7000;
+  opacity: 0;
+  animation: ${show};
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+`;
+
 export const FavoritesContainer = styled.div`
   position: absolute;
   top: 30px;
@@ -49,6 +60,8 @@ export const Recipe = styled.div`
   min-height: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
+  position: relative;
+  z-index: 9000;
 
   &:hover {
     background: #e7e7e7;

@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebase";
 import { useDispatch } from "react-redux";
-import React from "react";
+import React, { useEffect } from "react";
 
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -17,19 +17,21 @@ import EditAccountSettings from "./pages/EditAccountSettings";
 function App() {
   const dispatch = useDispatch();
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      const password = sessionStorage.getItem("up");
-      const reviews = JSON.parse(sessionStorage.getItem("reviews"));
-      const favorites = JSON.parse(sessionStorage.getItem("favorites"));
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const password = sessionStorage.getItem("up");
+        const reviews = JSON.parse(sessionStorage.getItem("reviews"));
+        const favorites = JSON.parse(sessionStorage.getItem("favorites"));
 
-      dispatch({ type: "setUserPassword", password: password });
-      dispatch({ type: "setUser", user: user, reviews: reviews });
-      dispatch({ type: "setFavorites", favorites: favorites });
-    } else {
-      dispatch({ type: "setLogout" });
-    }
-  });
+        dispatch({ type: "setUserPassword", password: password });
+        dispatch({ type: "setUser", user: user, reviews: reviews });
+        dispatch({ type: "setFavorites", favorites: favorites });
+      } else {
+        dispatch({ type: "setLogout" });
+      }
+    });
+  }, []);
 
   return (
     <Layout>

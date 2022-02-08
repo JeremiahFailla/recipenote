@@ -58,12 +58,6 @@ const RecipesContent = () => {
     setSearchRecipe(search);
   }, [search]);
 
-  useEffect(() => {
-    if (searchRecipe !== searchParameter) {
-      fetchRecipes();
-    }
-  }, [searchRecipe]);
-
   const prevBtnHandler = () => {
     if (pages.currentPage === 0) return;
     const first = pages.currentPage - 1;
@@ -110,24 +104,27 @@ const RecipesContent = () => {
         </React.Fragment>
       ) : (
         <React.Fragment>
-          <Styled.RecipesContainer>
-            {recipes
-              .slice(
-                pages.notFirstPage + pages.currentPage * 12,
-                pages.notFirstPage + 12 + pages.currentPage * 12
-              )
-              .map((rec) => (
-                <Recipe
-                  publisher={rec.publisher}
-                  image={rec.image_url}
-                  title={rec.title}
-                  id={rec.id}
-                  key={rec.id}
-                  recipeId={recipeId === rec.id ? true : false}
-                />
-              ))}
-          </Styled.RecipesContainer>
-          {recipes.length > 12 && (
+          {loading && <Styled.Loader />}
+          {!loading && (
+            <Styled.RecipesContainer>
+              {recipes
+                .slice(
+                  pages.notFirstPage + pages.currentPage * 12,
+                  pages.notFirstPage + 12 + pages.currentPage * 12
+                )
+                .map((rec) => (
+                  <Recipe
+                    publisher={rec.publisher}
+                    image={rec.image_url}
+                    title={rec.title}
+                    id={rec.id}
+                    key={rec.id}
+                    recipeId={recipeId === rec.id ? true : false}
+                  />
+                ))}
+            </Styled.RecipesContainer>
+          )}
+          {!loading && recipes.length > 12 && (
             <Styled.PaginationContainer>
               <Styled.Page onClick={prevBtnHandler}>Prev</Styled.Page>
               <Styled.Page onClick={nextBtnHandler}>Next</Styled.Page>
