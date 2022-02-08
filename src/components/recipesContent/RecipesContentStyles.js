@@ -170,3 +170,11 @@ export const Loader = styled.div`
   animation: ${rotate} 1s linear infinite;
   margin: 0 auto;
 `;
+
+export const PageNumber = styled.div`
+  font-size: 1rem;
+  padding: 8px 0;
+  background: transparent;
+  font-family: "Scada", sans-serif;
+  color: #d8440f;
+`;

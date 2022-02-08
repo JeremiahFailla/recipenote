@@ -127,6 +127,7 @@ const RecipesContent = () => {
           {!loading && recipes.length > 12 && (
             <Styled.PaginationContainer>
               <Styled.Page onClick={prevBtnHandler}>Prev</Styled.Page>
+              <Styled.PageNumber>{pages.currentPage + 1}</Styled.PageNumber>
               <Styled.Page onClick={nextBtnHandler}>Next</Styled.Page>
             </Styled.PaginationContainer>
           )}
@@ -138,7 +139,7 @@ const RecipesContent = () => {
           <Styled.PopularRecipeList>
             <span>
               -{" "}
-              <Styled.Recipe onClick={() => navigate("/recipes/streak bites")}>
+              <Styled.Recipe onClick={() => navigate("/recipes/steak bites")}>
                 Steak Bites
               </Styled.Recipe>
             </span>
